@@ -11,7 +11,8 @@ export const Input = ({
     onBlurHandler,
     type,
     placeholder,
-    textarea
+    textarea,
+    style
 })=>{
     const handleValueChange=(e)=>{
         const val = type ==='file' ? e.target.files[0]: e.target.value
@@ -36,6 +37,7 @@ export const Input = ({
                         onBlur={handleOnBlur}
                         rows={5}
                         placeholder={placeholder}
+                        className={style}
                     />
                 ):(
                     <input type={type}
@@ -43,11 +45,11 @@ export const Input = ({
                         onChange={handleValueChange}
                         onBlur={handleOnBlur}
                         placeholder={placeholder}
-                        className="llenar cuando llegue el css"
+                        className={style}
                      />
                 )
             }
-            <span>{showErrorMessage && validationMessage }</span>
+            <span className="text-red-600">{showErrorMessage && validationMessage }</span>
         </>
     )
 }
