@@ -98,7 +98,7 @@ export const LevelsList = () => {
                 alert("Este nivel está bloqueado")
                 return
               }
-              navigate(`/nivel/${center.id}`)
+              navigate(`/question`, {state:{level:center}})
             }}
             className={`mt-4 px-10 py-4 rounded-full text-xl font-bold ${
               centerUnlocked
