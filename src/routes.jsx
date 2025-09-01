@@ -1,6 +1,8 @@
 import { AuthPage } from "./pages/AuthPage"
 import { MainMenuPage } from "./pages/MainMenuPage"
 import { LevelsList } from "./pages/Levels/LevelList"
+import { element } from "prop-types"
+import { QuestionsPage } from "./pages/Questions/QuestionsPage"
 
 export const routes = [
   {
@@ -13,5 +15,8 @@ export const routes = [
   },
   { 
     path: "/niveles/list", element: <LevelsList /> 
+  },
+  {
+    path: '/question',element:<QuestionsPage/>
   }
 ]

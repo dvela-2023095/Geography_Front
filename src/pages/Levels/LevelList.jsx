@@ -5,7 +5,7 @@ import { getLevels } from "../../../services/Levelsapi.js"
 const MEDIA_BASE = "http://localhost:2636/uploads/img/levels"
 
 export const LevelsList = () => {
-  const [flags, setFlags] = useState([])
+  const [cards, setCards] = useState([])
   const [index, setIndex] = useState(0)
   const [loading, setLoading] = useState(true)
   const [err, setErr] = useState("")
@@ -18,46 +18,47 @@ export const LevelsList = () => {
       const data = await getLevels()
       if (data?.error) {
         setErr("No se pudieron cargar los niveles")
-        setFlags([])
+        setCards([])
       } else {
-        const justFlags = []
+        const onlyLevelImages = []
         for (let i = 0; i < (Array.isArray(data) ? data.length : 0); i++) {
           const lv = data[i]
-          if (lv?.flag) {
-            justFlags.push({
+          if (lv?.levelImage) {
+            onlyLevelImages.push({
               id: lv._id || lv.id,
               name: lv.name || `Nivel ${i + 1}`,
-              imageUrl: `${MEDIA_BASE}/${lv.flag}`,
+              levelUrl: `${MEDIA_BASE}/${lv.levelImage}`,
+              flagUrl: `${MEDIA_BASE}/${lv.flag}`,
               order: i + 1,
             })
           }
         }
-        setFlags(justFlags)
-        if (!justFlags.length) setErr("No hay banderas disponibles")
+        setCards(onlyLevelImages)
+        if (!onlyLevelImages.length) setErr("No hay niveles disponibles")
       }
       setLoading(false)
     }
     load()
   }, [])
 
-  const clamp = (n) => (flags.length ? (n + flags.length) % flags.length : 0)
-  const goPrev = () => setIndex((i) => clamp(i - 1))
-  const goNext = () => setIndex((i) => clamp(i + 1))
+  const clamp = n => (cards.length ? (n + cards.length) % cards.length : 0)
+  const goPrev = () => setIndex(i => clamp(i - 1))
+  const goNext = () => setIndex(i => clamp(i + 1))
 
-  if (loading) return <p>Cargando…</p>
-  if (err || !flags.length) return <p>{err || "No hay banderas"}</p>
+  if (loading) return <p className="text-3xl">Cargando…</p>
+  if (err || !cards.length) return <p className="text-3xl">{err || "No hay niveles"}</p>
 
-  const center = flags[index]
-  const left = flags[clamp(index - 1)]
-  const right = flags[clamp(index + 1)]
+  const center = cards[index]
+  const left = cards[clamp(index - 1)]
+  const right = cards[clamp(index + 1)]
 
   const completed = JSON.parse(localStorage.getItem("completedLevels") || "[]")
 
-  const isUnlocked = (lv) => {
+  const isUnlocked = lv => {
     if (!lv) return false
     if (completed.includes(lv.id)) return true
     if (lv.order === 1) return true
-    const prev = flags.find((f) => f.order === lv.order - 1)
+    const prev = cards.find(f => f.order === lv.order - 1)
     return prev ? completed.includes(prev.id) : false
   }
 
@@ -66,41 +67,48 @@ export const LevelsList = () => {
   const rightUnlocked = isUnlocked(right)
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6">
-      <div className="w-full max-w-7xl flex items-center justify-center gap-8">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 relative">
+      <button
+        onClick={() => navigate("/MainMenu")}
+        className="absolute top-6 left-6 px-6 py-3 rounded-full border border-gray-400 text-xl font-bold hover:bg-gray-100">
+          ← Volver
+      </button>
+
+
+      <div className="w-full max-w-[1400px] flex items-center justify-center gap-12">
         <div className="flex flex-col items-center">
           <div
-            className="w-56 h-40 md:w-72 md:h-48 rounded-2xl shadow overflow-hidden bg-white relative"
+            className="w-80 h-56 md:w-[22rem] md:h-[15rem] rounded-2xl shadow-xl overflow-hidden bg-white relative"
             style={{ filter: leftUnlocked ? "none" : "grayscale(80%) brightness(0.85)" }}
           >
-            <img src={left.imageUrl} alt={left.name} className="w-full h-full object-cover" />
-            {!leftUnlocked && <div className="absolute inset-0 flex items-center justify-center text-4xl">🔒</div>}
+            <img src={left.levelUrl} alt={left.name} className="w-full h-full object-cover" />
+            {!leftUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
           </div>
-          <p>{left?.name}</p>
+          <p className="mt-3 text-xl">{left?.name}</p>
         </div>
 
-        <button onClick={goPrev} className="text-5xl">«</button>
+        <button onClick={goPrev} className="text-6xl px-4">«</button>
 
         <div className="flex flex-col items-center">
-          <div className="relative w-[28rem] h-[18rem] md:w-[42rem] md:h-[26rem] rounded-3xl shadow-2xl overflow-hidden bg-white">
-            <img src={center.imageUrl} alt={center.name} className="w-full h-full object-cover" />
+          <div className="relative w-[40rem] h-[25rem] rounded-3xl shadow-2xl overflow-hidden bg-white">
+            <img src={center.levelUrl} alt={center.name} className="w-full h-full object-cover" />
             {!centerUnlocked && (
-              <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center gap-3 text-white">
-                <span className="text-6xl">🔒</span>
-                <p className="text-xl">Completa el nivel anterior para desbloquear</p>
+              <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center gap-4 text-white">
+                <span className="text-7xl">🔒</span>
+                <p className="text-2xl font-semibold">Completa el nivel anterior para desbloquear</p>
               </div>
             )}
           </div>
-          <p className="mt-6 text-3xl font-bold">{center.name}</p>
+          <p className="mt-6 text-4xl font-extrabold">{center.name}</p>
           <button
             onClick={() => {
               if (!centerUnlocked) {
                 alert("Este nivel está bloqueado")
                 return
               }
-              navigate(`/nivel/${center.id}`)
+              navigate(`/question`, { state: { level: center } })
             }}
-            className={`mt-4 px-10 py-4 rounded-full text-xl font-bold ${
+            className={`mt-4 px-12 py-5 rounded-full text-2xl font-bold ${
               centerUnlocked
                 ? "bg-black text-white hover:bg-gray-800"
                 : "bg-gray-300 text-gray-600 cursor-not-allowed"
@@ -110,17 +118,17 @@ export const LevelsList = () => {
           </button>
         </div>
 
-        <button onClick={goNext} className="text-5xl">»</button>
+        <button onClick={goNext} className="text-6xl px-4">»</button>
 
         <div className="flex flex-col items-center">
           <div
-            className="w-56 h-40 md:w-72 md:h-48 rounded-2xl shadow overflow-hidden bg-white relative"
+            className="w-80 h-56 md:w-[22rem] md:h-[15rem] rounded-2xl shadow-xl overflow-hidden bg-white relative"
             style={{ filter: rightUnlocked ? "none" : "grayscale(80%) brightness(0.85)" }}
           >
-            <img src={right.imageUrl} alt={right.name} className="w-full h-full object-cover" />
-            {!rightUnlocked && <div className="absolute inset-0 flex items-center justify-center text-4xl">🔒</div>}
+            <img src={right.levelUrl} alt={right.name} className="w-full h-full object-cover" />
+            {!rightUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
           </div>
-          <p>{right?.name}</p>
+          <p className="mt-3 text-xl">{right?.name}</p>
         </div>
       </div>
     </div>
