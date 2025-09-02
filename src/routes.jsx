@@ -3,6 +3,7 @@ import { MainMenuPage } from "./pages/MainMenuPage"
 import { LevelsList } from "./pages/Levels/LevelList"
 import { element } from "prop-types"
 import { QuestionsPage } from "./pages/Questions/QuestionsPage"
+import { ProgressPage } from "./pages/ProgressPage"
 
 export const routes = [
   {
@@ -18,5 +19,8 @@ export const routes = [
   },
   {
     path: '/question',element:<QuestionsPage/>
+  },
+  {
+    path:'/progress', element:<ProgressPage/>
   }
 ]

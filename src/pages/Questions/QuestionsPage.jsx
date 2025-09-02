@@ -4,6 +4,7 @@ import { Question } from "../../components/Questions/Question"
 import { useQuestions } from "../../../shared/hooks/Questions/useQuestion"
 import { AnswerCard } from "./AnswerdCard"
 import { ResultModal } from "../Result/ResultModal"
+import { useUserProgress } from "../../../shared/hooks/Progress/useProgress"
 
 export const QuestionsPage = () => {
     const location = useLocation()
@@ -14,7 +15,8 @@ export const QuestionsPage = () => {
     const [questionNumber, setQuestionNumber] = useState(0)
     const [correctCount, setCorrectCount] = useState(0)
     const [result, setResult] = useState(null)
-
+    const {updateProgress}=useUserProgress()
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const DEFAULT_CLASS = 'cursor-pointer flex flex-col items-center justify-center p-4  rounded-2xl shadow-lg hover:shadow-2xl transition-all w-96'
     const DEFAULT_TEXT = 'text-center text-xl font-bold'
@@ -59,8 +61,10 @@ export const QuestionsPage = () => {
     const handleNextQuestion = () => {
         const lastIndex = (questions.length || 1) - 1
         if (questionNumber >= lastIndex) {
-        console.log('hola jijiji')
-        if (percent >= 100) unlockAndShowWin()
+            updateProgress(level.id)
+        if (percent >= 100) {
+            unlockAndShowWin()
+        }
         else setResult('lose')
         } else {
         setQuestionNumber(prev => prev + 1)

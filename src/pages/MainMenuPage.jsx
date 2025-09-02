@@ -26,7 +26,8 @@ export const MainMenuPage = () => {
               Start
             </button>
 
-            <button className="w-full max-w-[28rem] px-12 py-5 text-2xl md:text-3xl bg-blue-200 hover:bg-blue-300 rounded-full font-bold text-black shadow-lg transition">
+            <button className="w-full max-w-[28rem] px-12 py-5 text-2xl md:text-3xl bg-blue-200 hover:bg-blue-300 rounded-full font-bold text-black shadow-lg transition"
+              onClick={()=>navigate('/progress')}>
               Progreso
             </button>
           </div>
