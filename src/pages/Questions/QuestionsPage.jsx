@@ -107,7 +107,7 @@ export const QuestionsPage = () => {
     }
 
     
-
+    
     return (
         <div className="min-h-screen w-full bg-gradient-to-b from-blue-200 via-white to-green-200 flex flex-col items-center px-4 sm:px-6 md:px-8 lg:px-12 py-8 md:py-12 lg:py-8 overflow-hidden">
 

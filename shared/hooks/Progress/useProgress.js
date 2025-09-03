@@ -19,11 +19,13 @@ export const useUserProgress = () => {
     setLoading(false)
   }, [])
 
+  
   const updateProgress =async(level)=>{
     setLoading(true)
     const body = {
       levelCompleted:level
     }
+
     const response = await updateProgressRequest(body)
     setLoading(false)
     if(response.error){
