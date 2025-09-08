@@ -9,6 +9,7 @@ export const LevelsList = () => {
   const [index, setIndex] = useState(0)
   const [loading, setLoading] = useState(true)
   const [err, setErr] = useState("")
+  const [blockedMsg, setBlockedMsg] = useState("")  // 👈 estado para mostrar mensaje
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -74,7 +75,6 @@ export const LevelsList = () => {
           ← Volver
       </button>
 
-
       <div className="w-full max-w-[1400px] flex items-center justify-center gap-12">
         <div className="flex flex-col items-center">
           <div
@@ -103,9 +103,10 @@ export const LevelsList = () => {
           <button
             onClick={() => {
               if (!centerUnlocked) {
-                alert("Este nivel está bloqueado")
+                setBlockedMsg("⚠️ Debes pasarte el nivel anterior para poder jugar")
                 return
               }
+              setBlockedMsg("")
               navigate(`/question`, { state: { level: center } })
             }}
             className={`mt-4 px-12 py-5 rounded-full text-2xl font-bold ${
@@ -116,6 +117,10 @@ export const LevelsList = () => {
           >
             Jugar
           </button>
+
+          {blockedMsg && (
+            <p className="mt-4 text-red-600 text-lg font-semibold">{blockedMsg}</p>
+          )}
         </div>
 
         <button onClick={goNext} className="text-6xl px-4">»</button>
