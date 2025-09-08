@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getLevels } from "../../../services/Levelsapi.js"
+import { boton_volver } from "../../transitions.js"
 
 const MEDIA_BASE = "http://localhost:2636/uploads/img/levels"
 
@@ -71,7 +72,7 @@ export const LevelsList = () => {
     <div className="min-h-screen flex flex-col items-center justify-center px-6 relative">
       <button
         onClick={() => navigate("/MainMenu")}
-        className="absolute top-6 left-6 px-6 py-3 rounded-full border border-gray-400 text-xl font-bold hover:bg-gray-100">
+        className={boton_volver}>
           ← Volver
       </button>
 
@@ -81,17 +82,17 @@ export const LevelsList = () => {
             className="w-80 h-56 md:w-[22rem] md:h-[15rem] rounded-2xl shadow-xl overflow-hidden bg-white relative"
             style={{ filter: leftUnlocked ? "none" : "grayscale(80%) brightness(0.85)" }}
           >
-            <img src={left.levelUrl} alt={left.name} className="w-full h-full object-cover" />
+            <img src={left.levelUrl} alt={left.name} className="w-full h-full object-cover animate-fadeIn" />
             {!leftUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
           </div>
           <p className="mt-3 text-xl">{left?.name}</p>
         </div>
 
-        <button onClick={goPrev} className="text-6xl px-4">«</button>
+        <button onClick={goPrev} className="text-6xl px-4 animate-bounce">«</button>
 
         <div className="flex flex-col items-center">
           <div className="relative w-[40rem] h-[25rem] rounded-3xl shadow-2xl overflow-hidden bg-white">
-            <img src={center.levelUrl} alt={center.name} className="w-full h-full object-cover" />
+            <img src={center.levelUrl} alt={center.name} className="w-full h-full object-cover animate-fadeIn" />
             {!centerUnlocked && (
               <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center gap-4 text-white">
                 <span className="text-7xl">🔒</span>
@@ -99,7 +100,7 @@ export const LevelsList = () => {
               </div>
             )}
           </div>
-          <p className="mt-6 text-4xl font-extrabold">{center.name}</p>
+          <p className="mt-6 text-4xl font-extrabold animate-typing">{center.name}</p>
           <button
             onClick={() => {
               if (!centerUnlocked) {
@@ -109,7 +110,7 @@ export const LevelsList = () => {
               setBlockedMsg("")
               navigate(`/question`, { state: { level: center } })
             }}
-            className={`mt-4 px-12 py-5 rounded-full text-2xl font-bold ${
+            className={`mt-4 px-12 py-5 rounded-full text-2xl font-bold animate-upSlide ${
               centerUnlocked
                 ? "bg-black text-white hover:bg-gray-800"
                 : "bg-gray-300 text-gray-600 cursor-not-allowed"
@@ -123,14 +124,14 @@ export const LevelsList = () => {
           )}
         </div>
 
-        <button onClick={goNext} className="text-6xl px-4">»</button>
+        <button onClick={goNext} className="text-6xl px-4 animate-bounce">»</button>
 
         <div className="flex flex-col items-center">
           <div
             className="w-80 h-56 md:w-[22rem] md:h-[15rem] rounded-2xl shadow-xl overflow-hidden bg-white relative"
             style={{ filter: rightUnlocked ? "none" : "grayscale(80%) brightness(0.85)" }}
           >
-            <img src={right.levelUrl} alt={right.name} className="w-full h-full object-cover" />
+            <img src={right.levelUrl} alt={right.name} className="w-full h-full object-cover animate-fadeIn" />
             {!rightUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
           </div>
           <p className="mt-3 text-xl">{right?.name}</p>

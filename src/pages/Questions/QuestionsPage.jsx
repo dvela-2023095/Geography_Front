@@ -122,6 +122,7 @@ export const QuestionsPage = () => {
             <div className="w-full max-w-6xl mb-10 md:mb-12 lg:mb-16 bg-white rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl px-4 sm:px-6 md:px-10 lg:px-14 py-6 sm:py-8 md:py-10 lg:py-5 flex justify-center">
                 {questions.length > 0 && (
                     <Question
+                        key={questions[questionNumber].question}
                         imgUrl={level.flagUrl}
                         Question={questions[questionNumber].question}
                     />
@@ -130,7 +131,8 @@ export const QuestionsPage = () => {
 
 
             {/* respuestas */}
-            <div className="w-full max-w-7xl flex flex-col sm:flex-row flex-wrap justify-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-12 lg:mb-16">
+            <div className="w-full max-w-7xl flex flex-col sm:flex-row flex-wrap justify-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-12 lg:mb-16"
+                key={questionNumber}>
             {answers.length > 0 && answers.map((opcion, i) => (
                 <AnswerCard
                 key={i}

@@ -31,14 +31,14 @@ export const AnswerCard = ({ answer, picture, isCorrect, nextQuestionHandler, li
   return (
     <div
       onClick={handleAnswer}
-      className={cardClass}
+      className={`animate-downSlide  ${cardClass}`}
     >
       <img
         src={`${UPLOADS_ROUTE}${picture}`}
         alt="respuesta"
         className="w-80 h-52 object-cover mb-3 rounded-lg"
       />
-      <p className={txtColor}>{answer}</p>
+      <p className={`animate-typing ${txtColor}`}>{answer}</p>
     </div>
   )
 }
