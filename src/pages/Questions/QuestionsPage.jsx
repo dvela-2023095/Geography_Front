@@ -66,10 +66,6 @@ export const QuestionsPage = () => {
         const lastIndex = (questions.length || 1) - 1
         if (questionNumber >= lastIndex) {
             updateProgress(level.id)
-        if (percent >= 100) {
-            unlockAndShowWin()
-        }
-        else setResult('lose')
         } else {
         setQuestionNumber(prev => prev + 1)
         }
@@ -114,13 +110,13 @@ export const QuestionsPage = () => {
     const showCongratulations = async() => {
         await setTypeOfAnswer({message:'Muy Bien!!!',typeAnswer:'good'})
         setShow(true)
-        setTimeout(() => setShow(false), 2000) 
+        setTimeout(() => setShow(false), 1500) 
     }
 
     const showDeception = async() => {
         await setTypeOfAnswer({message:'Ups Respuesta incorrecta!!!',typeAnswer:'bad'})
         setShow(true)
-        setTimeout(() => setShow(false), 2000) 
+        setTimeout(() => setShow(false), 1500) 
     }
 
     

@@ -24,7 +24,7 @@ export const AnswerCard = ({ answer,
 
   const handleAnswer = async() => {
     if (isCorrect === true) {
-      if (onCorrect) onCorrect()
+        await  onCorrect()
         await good(),
         nextQuestionHandler()
     } else {
