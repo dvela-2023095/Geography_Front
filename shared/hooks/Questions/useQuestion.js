@@ -7,13 +7,13 @@ import toast from "react-hot-toast";
 export const useQuestions =()=>{
     const [isLoading,setIsLoading]=useState(false)
     const [questions, setQuestions]=useState([])
-    const navigate = useNavigate()
+    let timer
 
     const getQuestions = async(id)=>{
         setIsLoading(true)
         const response = await getQuestionsRequest(id)
-        setIsLoading(false)
-
+        const timer = setTimeout(() => setIsLoading(false), 1200)
+        
         if(response.error){
             return toast.error(
                 response?.e?.response?.data?.message ||

@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react"
 
-export const AnswerCard = ({ answer, picture, isCorrect, nextQuestionHandler, lifeHandler, onCorrect, cardColor,textColor,change }) => {
+export const AnswerCard = ({ answer, 
+  picture, 
+  isCorrect, 
+  nextQuestionHandler, 
+  lifeHandler, 
+  onCorrect, 
+  cardColor,
+  textColor,
+  change,
+  good,
+  bad }) => {
   const UPLOADS_ROUTE = 'http://localhost:2636/uploads/img/questions/'
   
   const [cardClass, setCardClass]=useState((`${cardColor} bg-white`))
@@ -12,13 +22,14 @@ export const AnswerCard = ({ answer, picture, isCorrect, nextQuestionHandler, li
   },[change])
 
 
-  const handleAnswer = () => {
+  const handleAnswer = async() => {
     if (isCorrect === true) {
       if (onCorrect) onCorrect()
-      nextQuestionHandler()
+        await good(),
+        nextQuestionHandler()
     } else {
       answerColorHandler()
-      
+      await bad()
       lifeHandler()
     }
   }
