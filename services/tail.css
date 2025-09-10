@@ -4,3 +4,78 @@
 .font-sigmar {
   font-family: 'Sigmar One', cursive;
 }
+
+@layer utilities {
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 3s ease-out forwards;
+  }
+}
+
+@keyframes leftSlide {
+    0% {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  .animate-leftSlide {
+    animation: leftSlide 2s ease-out forwards;
+  }
+
+@layer utilities {
+  @keyframes typing {
+    from { max-width: 0 }
+    to { max-width: 100% }
+  }
+
+  @keyframes blink {
+    50% { border-color: transparent }
+  }
+
+  .animate-typing {
+    display: inline-block;       /* Importante para que solo mida el texto */
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 1.5s steps(30, end) forwards, blink .75s step-end infinite;
+  }
+}
+
+@keyframes upSlide {
+    0% {
+      transform: translateY(70px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .animate-upSlide {
+    animation: upSlide 2s ease-out forwards;
+  }
+
+@keyframes downSlide {
+    0% {
+      transform: translateY(-70px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .animate-downSlide {
+    animation: downSlide 2s ease-out forwards;
+  }

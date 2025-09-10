@@ -19,3 +19,13 @@ export const getProgressByUser = async (userId) => {
     return { error: true, message: "No se pudo obtener el progreso", e }
   }
 }
+
+export const updateProgressRequest = async (level) => {
+  try {
+    console.log(level)
+    const res = await apiClient.put(`update`,level)
+    return res.data
+  } catch (e) {
+    return { error: true, message: "Error al actualizar el progreso", e }
+  }
+}

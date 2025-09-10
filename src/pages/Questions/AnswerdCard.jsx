@@ -1,26 +1,55 @@
-export const AnswerCard = ({ answer, picture, isCorrect, nextQuestionHandler, lifeHandler, onCorrect }) => {
-  const UPLOADS_ROUTE = 'http://localhost:2636/uploads/img/questions/'
+import { useEffect, useState } from "react"
 
-  const handleAnswer = () => {
+export const AnswerCard = ({ answer, 
+  picture, 
+  isCorrect, 
+  nextQuestionHandler, 
+  lifeHandler, 
+  onCorrect, 
+  cardColor,
+  textColor,
+  change,
+  good,
+  bad }) => {
+  const UPLOADS_ROUTE = 'http://localhost:2636/uploads/img/questions/'
+  
+  const [cardClass, setCardClass]=useState((`${cardColor} bg-white`))
+  const [txtColor,setTxtColor]=useState((`${textColor} text-blue-800`))
+
+  useEffect(()=>{
+    setCardClass(`${cardColor} bg-white`)
+    setTxtColor(`${textColor} text-blue-800`)
+  },[change])
+
+
+  const handleAnswer = async() => {
     if (isCorrect === true) {
-      if (onCorrect) onCorrect()
-      nextQuestionHandler()
+        await  onCorrect()
+        await good(),
+        nextQuestionHandler()
     } else {
+      answerColorHandler()
+      await bad()
       lifeHandler()
     }
+  }
+
+  const answerColorHandler =()=>{
+    setCardClass(`${cardColor} bg-red-600`)
+    setTxtColor(`${textColor} text-white`)
   }
 
   return (
     <div
       onClick={handleAnswer}
-      className="cursor-pointer flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all w-96"
+      className={`animate-downSlide  ${cardClass}`}
     >
       <img
         src={`${UPLOADS_ROUTE}${picture}`}
         alt="respuesta"
         className="w-80 h-52 object-cover mb-3 rounded-lg"
       />
-      <p className="text-center text-xl font-bold text-blue-800">{answer}</p>
+      <p className={`animate-typing ${txtColor}`}>{answer}</p>
     </div>
   )
 }

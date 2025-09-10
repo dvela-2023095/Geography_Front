@@ -40,6 +40,7 @@ export const useLogin = ()=>{
                 'Error al registrar el usuario, intentelo de nuevo'
             )
         }
+        toast.success('Registrado exitosamente')
         navigate('/')
     }
 
