@@ -1,6 +1,6 @@
 export const  AnswerReactionModal =({ open, message,typeAnswer }) =>{
   
-
+    const randnum = Math.floor(Math.random()*3)+1
 
   return (
     <>
@@ -12,7 +12,7 @@ export const  AnswerReactionModal =({ open, message,typeAnswer }) =>{
 
                     <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl p-10 text-center">
                         <h2 className="text-lg font-sigmar text-blue-600 drop-shadow-md text-center mb-5">{message}</h2>
-                        <img className="max-h-[500px] max-w-[500px]" src={`../upload/${typeAnswer}1.gif`} alt="" />
+                        <img className="max-h-[500px] max-w-[500px]" src={`../upload/${typeAnswer}${randnum}.gif`} alt="" />
                     </div>
                 </div>
             ):null

@@ -7,6 +7,7 @@ import { ResultModal } from "../Result/ResultModal"
 import { useUserProgress } from "../../../shared/hooks/Progress/useProgress"
 import { LoadingPage } from "../LoadingPage"
 import { AnswerReactionModal } from "../../components/AnswerReactionModal"
+import { answers_container, question_container } from "../../transitions"
 
 export const QuestionsPage = () => {
     const location = useLocation()
@@ -22,7 +23,7 @@ export const QuestionsPage = () => {
     const [typeOfAnswer,setTypeOfAnswer]=useState({message:'Hola!!!',typeAnswer:'good'})
     const user = JSON.parse(localStorage.getItem('user'))
 
-    const DEFAULT_CLASS = 'cursor-pointer flex flex-col items-center justify-center p-4  rounded-2xl shadow-lg hover:shadow-2xl transition-all w-96'
+    const DEFAULT_CLASS = 'sm:max-h-70 cursor-pointer flex flex-col items-center justify-center p-4  rounded-2xl shadow-lg hover:shadow-2xl transition-all w-96'
     const DEFAULT_TEXT = 'text-center text-xl font-bold'
 
     const [lifes, setLifes] = useState([
@@ -123,17 +124,17 @@ export const QuestionsPage = () => {
     
     return (
         <>
-            {isLoading ? (<LoadingPage/>):(<div className="min-h-screen w-full bg-gradient-to-b from-blue-200 via-white to-green-200 flex flex-col items-center px-4 sm:px-6 md:px-8 lg:px-12 py-8 md:py-12 lg:py-8 overflow-hidden">
+            {isLoading ? (<LoadingPage/>):(<div className="sm:flex-col w-full bg-gradient-to-b from-blue-200 via-white to-green-200 flex flex-col items-center px-4  md:px-8 lg:px-12 py-8 md:py-12 lg:py-8" style={{ background: "#5bb4d6" }}>
 
                 {/* vidas */}
-                <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-8 md:mb-12 lg:mb-1">
+                <div className="flex flex-wrap justify-center">
                 {lifes.map((life, i) => (
                     life.show && <img src={life.src} key={i} className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20" />
                 ))}
                 </div>
 
                 {/* pregunta */}
-                <div className="w-full max-w-6xl mb-10 md:mb-12 lg:mb-16 bg-white rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl px-4 sm:px-6 md:px-10 lg:px-14 py-6 sm:py-8 md:py-10 lg:py-5 flex justify-center">
+                <div className={question_container}>
                     {questions.length > 0 && (
                         <Question
                             key={questions[questionNumber].question}
@@ -145,7 +146,7 @@ export const QuestionsPage = () => {
 
 
                 {/* respuestas */}
-                <div className="w-full max-w-7xl flex flex-col sm:flex-row flex-wrap justify-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-12 lg:mb-16"
+                <div className={answers_container}
                     key={questionNumber}>
                 {answers.length > 0 && answers.map((opcion, i) => (
                     <AnswerCard
@@ -163,23 +164,24 @@ export const QuestionsPage = () => {
                     bad={showDeception}
                     />
                 ))}
-                </div>
 
                 {/* progreso */}
-                <div className="w-full max-w-4xl mb-6 md:mb-8 lg:mb-7">
-                <div className="w-full h-10 sm:h-12 md:h-14 lg:h-12 bg-blue-300/60 rounded-full overflow-hidden relative">
+                <div className="w-full  max-w-4xl   mb-6 md:mb-8 lg:mb-7">
+                <div className="w-full h-10  md:h-14 lg:h-12 bg-white rounded-full  relative">
                     <div
-                    className="h-full bg-blue-600 rounded-full transition-all"
+                    className="h-full bg-linear-65 from-blue-900 to-sky-500 rounded-full transition-all"
                     style={{ width: `${percent}%` }}
                     />
                     <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl">{percent}%</span>
+                    <span className="text-blue-600 font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl">{percent}%</span>
                     </div>
                 </div>
-                <p className="text-center text-gray-600 mt-3 sm:mt-2 text-base sm:text-lg md:text-xl">
+                <p className="text-center text-gray-800 mt-3 text-base sm:text-lg md:text-xl">
                     Correctas {correctCount} / {total}
                 </p>
                 </div>
+                </div>
+
 
                 <ResultModal
                 open={!!result}

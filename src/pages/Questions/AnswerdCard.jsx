@@ -26,7 +26,7 @@ export const AnswerCard = ({ answer,
     if (isCorrect === true) {
         await  onCorrect()
         await good(),
-        nextQuestionHandler()
+        setTimeout(() => nextQuestionHandler(), 1500)
     } else {
       answerColorHandler()
       await bad()
@@ -47,7 +47,7 @@ export const AnswerCard = ({ answer,
       <img
         src={`${UPLOADS_ROUTE}${picture}`}
         alt="respuesta"
-        className="w-80 h-52 object-cover mb-3 rounded-lg"
+        className="w-80 h-40 object-cover mb-3 rounded-lg"
       />
       <p className={`animate-typing ${txtColor}`}>{answer}</p>
     </div>

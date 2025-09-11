@@ -22,7 +22,7 @@ export const ProgressPage = () => {
     if (progress) {
       let result =
         (100 * progress.levelsCompleted.length) /
-        (progress.blockedLevels.length + 1)
+        (progress.blockedLevels.length + 1+progress.levelsCompleted.length)
       result = Math.floor(result)
       setPorcentaje(result)
     }
@@ -98,7 +98,7 @@ export const ProgressPage = () => {
                 key={index}
                 src={`${MEDIA_BASE}/${flag.flag}`}
                 alt="Bandera"
-                className=" mt-7 animate-bounce rounded-2xl shadow-lg  transition-transform  w-auto object-contain mx-auto"
+                className=" mt-7 max-h-25 min-h-25 animate-bounce rounded-2xl shadow-lg  transition-transform   object-contain "
               />
             ))}
           </div>

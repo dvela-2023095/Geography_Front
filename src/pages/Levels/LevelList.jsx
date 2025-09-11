@@ -11,7 +11,7 @@ export const LevelsList = () => {
   const [index, setIndex] = useState(0)
   const [loading, setLoading] = useState(true)
   const [err, setErr] = useState("")
-  const [blockedMsg, setBlockedMsg] = useState("")  // 👈 estado para mostrar mensaje
+  const [blockedMsg, setBlockedMsg] = useState("")
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -74,14 +74,14 @@ export const LevelsList = () => {
 
   return (
     <>
-      {loading ? (<LoadingPage/>):(<div className="min-h-screen flex flex-col items-center justify-center px-6 relative">
+      {loading ? (<LoadingPage/>):(<div className="min-h-screen  flex flex-col items-center justify-center px-6 relative">
         <button
           onClick={() => navigate("/MainMenu")}
           className={boton_volver}>
             ← Volver
         </button>
 
-        <div className="w-full max-w-[1400px] flex items-center justify-center gap-12">
+        <div className="w-full max-w-[1400px] flex items-center justify-center gap-12 overflow-x-hidden">
           <div className="flex flex-col items-center">
             <div
               className="w-80 h-56 md:w-[22rem] md:h-[15rem] rounded-2xl shadow-xl overflow-hidden bg-white relative"
