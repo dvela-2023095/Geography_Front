@@ -12,5 +12,5 @@ export const boton_volver = 'absolute top-10 left-10 px-8 py-4 rounded-full bord
 
 
 //------------------------------QUESTION PAGE --------------------
-export const question_container ='sm:max-h-35  w-full max-w-6xl  md:mb-12 lg:mb-16 bg-white rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl px-4  md:px-10 lg:px-14 py-6  md:py-10 lg:py-5 flex justify-center'
-export const answers_container='sm:max-h-sm  w-full max-w-7xl flex flex-col sm:flex-row flex-wrap justify-center gap-6  md:gap-10 lg:gap-12 mb-8 md:mb-12 lg:mb-16'
+export const question_container ='sm:max-h-35  w-full max-w-6xl  mb-9 bg-white rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl px-4  md:px-10 lg:px-14 py-6 flex justify-center'
+export const answers_container='sm:max-h-sm  w-full max-w-7xl flex flex-col sm:flex-row flex-wrap justify-center gap-6  md:gap-10 lg:gap-12'

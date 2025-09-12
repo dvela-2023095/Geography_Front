@@ -27,9 +27,9 @@ export const QuestionsPage = () => {
     const DEFAULT_TEXT = 'text-center text-xl font-bold'
 
     const [lifes, setLifes] = useState([
-        { id: 1, show: true, src: '../../upload/corazon.gif' },
-        { id: 2, show: true, src: '../../upload/corazon.gif' },
-        { id: 3, show: true, src: '../../upload/corazon.gif' }
+        { id: 1, show: true, src: level.flagUrl },
+        { id: 2, show: true, src: level.flagUrl },
+        { id: 3, show: true, src: level.flagUrl }
     ])
     const [lifesNumber, setLifesNumber] = useState(3)
 
@@ -101,9 +101,9 @@ export const QuestionsPage = () => {
         setQuestionNumber(0)
         setCorrectCount(0)
         setLifes([
-        { id: 1, show: true, src: '../../upload/corazon.gif' },
-        { id: 2, show: true, src: '../../upload/corazon.gif' },
-        { id: 3, show: true, src: '../../upload/corazon.gif' }
+        { id: 1, show: true, src: level.flagUrl },
+        { id: 2, show: true, src: level.flagUrl },
+        { id: 3, show: true, src: level.flagUrl }
         ])
         setLifesNumber(3)
     }
@@ -124,12 +124,13 @@ export const QuestionsPage = () => {
     
     return (
         <>
-            {isLoading ? (<LoadingPage/>):(<div className="sm:flex-col w-full bg-gradient-to-b from-blue-200 via-white to-green-200 flex flex-col items-center px-4  md:px-8 lg:px-12 py-8 md:py-12 lg:py-8" style={{ background: "#5bb4d6" }}>
+            {isLoading ? (<LoadingPage/>):(
+                <div className="sm:flex-col w-full bg-gradient-to-b from-blue-200 via-white to-green-200 flex flex-col items-center px-4  md:px-8 lg:px-12 " style={{ background: "#5bb4d6" }}>
 
                 {/* vidas */}
-                <div className="flex flex-wrap justify-center">
+                <div className="flex flex-wrap justify-center mt-4 mb-4">
                 {lifes.map((life, i) => (
-                    life.show && <img src={life.src} key={i} className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20" />
+                    life.show && <img src={life.src} key={i} className="mx-3 pt-6  sm:w-14  sm:h-20  animate-bounce" />
                 ))}
                 </div>
 

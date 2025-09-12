@@ -35,7 +35,7 @@ export const AnswerCard = ({ answer,
   }
 
   const answerColorHandler =()=>{
-    setCardClass(`${cardColor} bg-red-600`)
+    setCardClass(`${cardColor} bg-red-600 pointer-events-none opacity-50`)
     setTxtColor(`${textColor} text-white`)
   }
 
