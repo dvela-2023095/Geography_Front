@@ -105,7 +105,6 @@ export const LevelsList = () => {
               <img src={left.levelUrl} alt={left.name} className="w-full h-full object-cover animate-fadeIn" />
               {!leftUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
             </div>
-            <p className="mt-3 text-xl">{left?.name}</p>
           </div>
 
           <button onClick={goPrev} className="text-6xl px-4 animate-bounce">«</button>
@@ -120,7 +119,7 @@ export const LevelsList = () => {
                 </div>
               )}
             </div>
-            <p className="mt-6 text-4xl font-extrabold animate-typing">{center.name}</p>
+            {centerUnlocked && <p className="mt-6 text-4xl font-extrabold animate-typing">{center.name}</p>}
             <button
               onClick={() => {
                 if (!centerUnlocked) {
@@ -154,7 +153,7 @@ export const LevelsList = () => {
               <img src={right.levelUrl} alt='' className="w-full h-full object-cover animate-fadeIn" />
               {!rightUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
             </div>
-            <p className="mt-3 text-xl">{right?.name}</p>
+            
           </div>
         </div>
       </div>)}

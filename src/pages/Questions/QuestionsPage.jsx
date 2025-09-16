@@ -125,7 +125,7 @@ export const QuestionsPage = () => {
     return (
         <>
             {isLoading ? (<LoadingPage/>):(
-                <div className="sm:flex-col w-full bg-gradient-to-b from-blue-200 via-white to-green-200 flex flex-col items-center px-4  md:px-8 lg:px-12 " style={{ background: "#5bb4d6" }}>
+                <div className="sm:flex-col w-full bg-gradient-to-b from-blue-200 via-white to-green-200 flex flex-col items-center px-4  md:px-8 lg:min-h-screen " style={{ background: "#5bb4d6" }}>
 
                 {/* vidas */}
                 <div className="flex flex-wrap justify-center mt-4 mb-4">
