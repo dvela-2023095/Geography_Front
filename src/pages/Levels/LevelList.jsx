@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { getLevels } from "../../../services/Levelsapi.js"
 import { boton_volver } from "../../transitions.js"
 import { LoadingPage } from "../LoadingPage.jsx"
@@ -13,6 +13,7 @@ export const LevelsList = () => {
   const [err, setErr] = useState("")
   const [blockedMsg, setBlockedMsg] = useState("")
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     let timer
@@ -46,6 +47,20 @@ export const LevelsList = () => {
     load()
     return () => clearTimeout(timer)
   }, [])
+
+  useEffect(() => {
+    if (!cards.length) return
+    const completed = JSON.parse(localStorage.getItem("completedLevels") || "[]")
+    const lastCompletedId = completed[completed.length - 1]
+    if (lastCompletedId) {
+      const idx = cards.findIndex(c => c.id === lastCompletedId)
+      if (idx !== -1) {
+        const next = cards[idx + 1]
+        if (next) setIndex(idx + 1)
+        else setIndex(idx)
+      }
+    }
+  }, [cards])
 
   const clamp = n => (cards.length ? (n + cards.length) % cards.length : 0)
   const goPrev = () => setIndex(i => clamp(i - 1))
@@ -136,7 +151,7 @@ export const LevelsList = () => {
               className="w-80 h-56 md:w-[22rem] md:h-[15rem] rounded-2xl shadow-xl overflow-hidden bg-white relative"
               style={{ filter: rightUnlocked ? "none" : "grayscale(80%) brightness(0.85)" }}
             >
-              <img src={right.levelUrl} alt={right.name} className="w-full h-full object-cover animate-fadeIn" />
+              <img src={right.levelUrl} alt='' className="w-full h-full object-cover animate-fadeIn" />
               {!rightUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
             </div>
             <p className="mt-3 text-xl">{right?.name}</p>
