@@ -1,6 +1,6 @@
 export const  AnswerReactionModal =({ open, message,typeAnswer }) =>{
   
-    const randnum = Math.floor(Math.random()*3)+1
+    const randnum = Math.floor(Math.random()*6)+1
 
   return (
     <>

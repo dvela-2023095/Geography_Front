@@ -89,70 +89,75 @@ export const LevelsList = () => {
   const rightUnlocked = isUnlocked(right, clamp(index + 1))
 
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center px-6 relative"
-      style={{ background: "#5bb4d6" }}
-    >
-      <button onClick={() => navigate("/MainMenu")} className={boton_volver}>
-        ← Volver
-      </button>
+    <>
+      {loading ? (<LoadingPage/>):(<div className="min-h-screen  flex flex-col items-center justify-center px-6 relative" >
+        <button
+          onClick={() => navigate("/MainMenu")}
+          className={boton_volver}>
+            ← Volver
+        </button>
 
-      <div className="w-full max-w-[1400px] flex items-center justify-center gap-12">
-        <div className="flex flex-col items-center">
-          <div
-            className="w-80 h-56 md:w-[22rem] md:h-[15rem] rounded-2xl shadow-xl overflow-hidden bg-white relative"
-            style={{
-              filter: leftUnlocked ? "none" : "grayscale(80%) brightness(0.85)",
-            }}
-          >
-            <img src={left.levelUrl} alt="" className="w-full h-full object-cover animate-fadeIn" />
-            {!leftUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
+        <div className="w-full max-w-[1400px] flex items-center justify-center gap-12 overflow-x-hidden">
+          <div className="flex flex-col items-center">
+            <div
+              className="w-80 h-56 md:w-[22rem] md:h-[15rem] rounded-2xl shadow-xl overflow-hidden bg-white relative"
+              style={{ filter: leftUnlocked ? "none" : "grayscale(80%) brightness(0.85)" }}
+            >
+              <img src={left.levelUrl} alt={left.name} className="w-full h-full object-cover animate-fadeIn" />
+              {!leftUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
+            </div>
           </div>
-        </div>
 
-        <button onClick={goPrev} className="text-6xl px-4 animate-bounce">«</button>
+          <button onClick={goPrev} className="text-6xl px-4 animate-bounce">«</button>
 
-        <div className="flex flex-col items-center">
-          <div className="relative w-[40rem] h-[25rem] rounded-3xl shadow-2xl overflow-hidden bg-white">
-            <img src={center.levelUrl} alt="" className="w-full h-full object-cover animate-fadeIn" />
-            {!centerUnlocked && (
-              <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center gap-4 text-white">
-                <span className="text-7xl">🔒</span>
-                <p className="text-2xl font-semibold">Completa el nivel anterior para desbloquear</p>
-              </div>
+          <div className="flex flex-col items-center">
+            <div className="relative w-[40rem] h-[25rem] rounded-3xl shadow-2xl overflow-hidden bg-white">
+              <img src={center.levelUrl} alt={center.name} className="w-full h-full object-cover animate-fadeIn" />
+              {!centerUnlocked && (
+                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center gap-4 text-white">
+                  <span className="text-7xl">🔒</span>
+                  <p className="text-2xl font-semibold">Completa el nivel anterior para desbloquear</p>
+                </div>
+              )}
+            </div>
+            {centerUnlocked && <p className="mt-6 text-4xl font-extrabold animate-typing">{center.name}</p>}
+            <button
+              onClick={() => {
+                if (!centerUnlocked) {
+                  setBlockedMsg("⚠️ Debes pasarte el nivel anterior para poder jugar")
+                  return
+                }
+                setBlockedMsg("")
+                navigate(`/question`, { state: { level: center } })
+              }}
+              className={`mt-4 px-12 py-5 rounded-full text-2xl font-bold animate-upSlide ${
+                centerUnlocked
+                  ? "bg-black text-white hover:bg-gray-800"
+                  : "bg-gray-300 text-gray-600 cursor-not-allowed"
+              }`}
+            >
+              Jugar
+            </button>
+
+            {blockedMsg && (
+              <p className="mt-4 text-red-600 text-lg font-semibold">{blockedMsg}</p>
             )}
           </div>
-          <button
-            onClick={() => {
-              if (!centerUnlocked) {
-                setBlockedMsg("⚠️ Debes pasarte el nivel anterior para poder jugar")
-                return
-              }
-              setBlockedMsg("")
-              navigate(`/question`, { state: { level: center } })
-            }}
-            className={`mt-4 px-12 py-5 rounded-full text-2xl font-bold animate-upSlide ${
-              centerUnlocked ? "bg-black text-white hover:bg-gray-800" : "bg-gray-300 text-gray-600 cursor-not-allowed"
-            }`}
-          >
-            Jugar
-          </button>
-          {blockedMsg && <p className="mt-4 text-red-600 text-lg font-semibold">{blockedMsg}</p>}
-        </div>
 
-        <button onClick={goNext} className="text-6xl px-4 animate-bounce">»</button>
-        <div className="flex flex-col items-center">
-          <div
-            className="w-80 h-56 md:w-[22rem] md:h-[15rem] rounded-2xl shadow-xl overflow-hidden bg-white relative"
-            style={{
-              filter: rightUnlocked ? "none" : "grayscale(80%) brightness(0.85)",
-            }}
-          >
-            <img src={right.levelUrl} alt="" className="w-full h-full object-cover animate-fadeIn" />
-            {!rightUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
+          <button onClick={goNext} className="text-6xl px-4 animate-bounce">»</button>
+
+          <div className="flex flex-col items-center">
+            <div
+              className="w-80 h-56 md:w-[22rem] md:h-[15rem] rounded-2xl shadow-xl overflow-hidden bg-white relative"
+              style={{ filter: rightUnlocked ? "none" : "grayscale(80%) brightness(0.85)" }}
+            >
+              <img src={right.levelUrl} alt='' className="w-full h-full object-cover animate-fadeIn" />
+              {!rightUnlocked && <div className="absolute inset-0 flex items-center justify-center text-6xl">🔒</div>}
+            </div>
+            
           </div>
         </div>
-      </div>
-    </div>
+      </div>)}
+    </>
   )
 }
